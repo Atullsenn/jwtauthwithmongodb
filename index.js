@@ -5,7 +5,9 @@ const cors = require('cors');
 const db = require('./config/dbConnection');
 const morgan = require('morgan');
 const path = require('path');
-
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerJsDocs = YAML.load('./api.yaml')
 
 
 
@@ -16,6 +18,9 @@ db()
 // express app
 const app = express();
 
+
+// swagger setup
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJsDocs))
 
 //setup view engine
 app.set('view engine', 'ejs');
